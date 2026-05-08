@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPA Calculator</title>
+
+  <style>
+    body{
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .box{
+      width: 350px;
+      margin: auto;
+      border: 1px solid black;
+      padding: 20px;
+    }
+
+    input{
+      padding: 8px;
+      margin: 5px;
+      width: 120px;
+    }
+
+    button{
+      padding: 8px 12px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .row{
+      margin: 10px 0;
+    }
+
+    .remove{
+      background-color: yellow;
+      color: white;
+      border: none;
+    }
+
+    .add{
+      background-color: blue;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h2>GPA Calculator</h2>
+
+    <div id="subjects"></div>
+
+    <button class="add" onclick="addSubject()">
+      Add Subject
+    </button>
+
+    <h3 id="result"></h3>
+
+  </div>
+
+  <script>
+
+    let subjects = document.getElementById("subjects");
+    let result = document.getElementById("result");
+
+    // Add Subject Function
+    function addSubject(){
+
+      let div = document.createElement("div");
+
+      div.className = "row";
+
+      div.innerHTML = `
+        <input type="text" placeholder="Subject">
+
+        <input type="number" placeholder="Marks">
+
+        <button class="remove">X</button>
+      `;
+
+      subjects.appendChild(div);
+
+      calculate();
+    }
+    
+    function marksToGpa(marks){
+
+      if(marks >= 85){
+        return 4.0;
+      }
+
+      else if(marks >= 80){
+        return 3.7;
+      }
+
+      else if(marks >= 75){
+        return 3.3;
+      }
+
+      else if(marks >= 70){
+        return 3.0;
+      }
+
+      else if(marks >= 65){
+        return 2.7;
+      }
+
+      else if(marks >= 60){
+        return 2.0;
+      }
+
+      else if(marks >= 50){
+        return 1.0;
+      }
+
+      else{
+        return 0.0;
+      }
+    }
+
+    // Calculate GPA
+    function calculate(){
+
+      let total = 0;
+      let count = 0;
+
+      let rows = document.querySelectorAll(".row");
+
+      rows.forEach(function(row){
+
+        let name = row.children[0].value;
+        let marks = row.children[1].value;
+
+        if(name != "" && marks != ""){
+
+          total = total + marksToGpa(Number(marks));
+
+          count++;
+        }
+
+      });
+
+      if(count == 0){
+        result.innerHTML = "";
+      }
+
+      else{
+
+        let gpa = total / count;
+
+        result.innerHTML = "GPA : " + gpa.toFixed(2);
+      }
+    }
+
+    
+    subjects.addEventListener("input", calculate);
+
+    
+    subjects.addEventListener("click", function(e){
+
+      if(e.target.classList.contains("remove")){
+
+        e.target.parentElement.remove();
+
+        calculate();
+      }
+
+    });
+
+    
+    addSubject();
+    addSubject();
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Website Structure</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f1f1;
+            color: #333;
+        }
+
+        .page {
+            width: 900px;
+            margin: 20px auto;
+            background: #fff;
+        }
+
+        .top {
+            text-align: center;
+            padding: 20px 10px 12px;
+        }
+
+        .top h1 { font-size: 44px; }
+        .top h1 span { color: #b9cd27; }
+        .top p { color: #888; font-size: 14px; margin-top: 5px; }
+
+        .nav {
+            background: #b9cd27;
+            text-align: center;
+            padding: 12px 8px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 14px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: #575741;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 35px 60px;
+        }
+
+        .hero-left {
+            width: 240px;
+            height: 140px;
+            background: #fff;
+            color: #333;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .hero-right h2 {
+            font-size: 44px;
+            line-height: 1.05;
+            margin-bottom: 10px;
+        }
+
+        .hero-right p {
+            width: 320px;
+            color: #ddd;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: #f6f6f6;
+        }
+
+        .feature {
+            width: 170px;
+            height: 90px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .orange { background: #f45a31; }
+        .green { background: #c9d92d; }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            padding: 30px 0 22px;
+            color: #444;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            padding-bottom: 35px;
+        }
+
+        .card {
+            width: 230px;
+            height: 240px;
+            background: #d8d8d8;
+            padding: 14px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            padding: 30px 65px;
+        }
+
+        .content-image {
+            width: 190px;
+            height: 110px;
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .content-text h3 {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .content-text p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #4f4f4f;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 45px;
+        }
+
+        .footer-col { width: 30%; }
+        .footer-col h4 { margin-bottom: 10px; }
+        .footer-col p, .footer-col li {
+            color: #d9d9d9;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer-col ul { list-style: none; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="top">
+            <h1>YOUR <span>logo</span></h1>
+            <p>Simple web page structure for lab practice</p>
+        </header>
+
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Pages</a>
+            <a href="#">Feature</a>
+            <a href="#">Services</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-left">IMAGE</div>
+            <div class="hero-right">
+                <h2>AWESOME WEBSITE TEMPLATE</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Easy to remember structure for exam and lab.</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature orange">ANALYSIS</div>
+            <div class="feature green">COORDINATION</div>
+            <div class="feature orange">PROCESSING</div>
+            <div class="feature green">WORKING</div>
+        </section>
+
+        <h2 class="section-title">IT IS INTERESTING</h2>
+
+        <section class="cards">
+            <div class="card">NAME OF STORY</div>
+            <div class="card">NAME OF STORY</div>
+            <div class="card">NAME OF STORY</div>
+        </section>
+
+        <section class="content">
+            <div class="content-image">VIDEO / IMAGE</div>
+            <div class="content-text">
+                <h3>YOUR AWESOME TITLE</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore doloribus numquam in minima quisquam, nostrum architecto dignissimos.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-col">
+                <h4>ABOUT US</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi atque unde laborum!</p>
+            </div>
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li>Alerts and Stuff</li>
+                    <li>Custom Shortcodes</li>
+                    <li>Pricing Plans</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>GET IN TOUCH</h4>
+                <p>Street 90, Wonderland</p>
+                <p>+123 456 789</p>
+                <p>test@example.com</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

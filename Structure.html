@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Div Structure Page</title>
+
+<style>
+  body{
+    font-family: Arial;
+    margin: 0;
+    background: #f1f1f1;
+  }
+
+  .container{
+    width: 900px;
+    margin: auto;
+    background: white;
+  }
+
+  /* HEADER */
+  .header{
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+  }
+
+  /* NAV */
+  .nav{
+    background: #b9cd27;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .nav a{
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+  }
+
+  /* HERO */
+  .hero{
+    display: flex;
+    background: #575741;
+    color: white;
+    padding: 30px;
+    justify-content: space-between;
+  }
+
+  .box{
+    width: 200px;
+    height: 120px;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* FEATURES */
+  .features{
+    display: flex;
+    justify-content: center;
+  }
+
+  .feature{
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+    background: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  /* CARDS */
+  .cards{
+    display: flex;
+    justify-content: center;
+  }
+
+  .card{
+    width: 200px;
+    height: 180px;
+    background: #ccc;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* CONTENT */
+  .content{
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .imgbox{
+    width: 180px;
+    height: 100px;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* FOOTER */
+  .footer{
+    display: flex;
+    background: #444;
+    color: white;
+    padding: 20px;
+  }
+
+  .footer div{
+    flex: 1;
+    padding: 10px;
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>YOUR LOGO</h1>
+    <p>Simple Div Structure</p>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <a href="#">Home</a>
+    <a href="#">Pages</a>
+    <a href="#">Services</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="box">IMAGE</div>
+    <div>
+      <h2>AWESOME WEBSITE</h2>
+      <p>Simple layout using div only</p>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature">A</div>
+    <div class="feature">B</div>
+    <div class="feature">C</div>
+    <div class="feature">D</div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards">
+    <div class="card">Card 1</div>
+    <div class="card">Card 2</div>
+    <div class="card">Card 3</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <div class="imgbox">IMG</div>
+    <div>
+      <h3>Title Here</h3>
+      <p>Simple content section using flex</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>About</div>
+    <div>Links</div>
+    <div>Contact</div>
+  </div>
+
+</div>
+
+</body>
+</html>
