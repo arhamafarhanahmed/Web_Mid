@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shayan Simple Calc</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #e8f4f8;
+    }
+    .calc {
+      width: 100%;
+      max-width: 280px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 30px rgba(0, 80, 100, 0.15);
+      border: 1px solid #b8dce8;
+    }
+    .calc h1 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      color: #0d5c6e;
+      text-align: center;
+    }
+    #screen {
+      width: 100%;
+      padding: 14px 12px;
+      font-size: 1.5rem;
+      text-align: right;
+      border: 2px solid #7eb8c9;
+      border-radius: 10px;
+      background: #f7fcfd;
+      color: #123;
+      margin-bottom: 14px;
+      min-height: 52px;
+      word-break: break-all;
+    }
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .keys button {
+      padding: 14px 0;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #e3f2f5;
+      color: #0d3d47;
+      font-weight: 600;
+    }
+    .keys button:hover { background: #cce8ee; }
+    .keys button:active { transform: scale(0.97); }
+    .op { background: #0d5c6e !important; color: #fff !important; }
+    .op:hover { background: #094854 !important; }
+    .zero { grid-column: span 2; }
+    .tall { grid-row: span 2; }
+  </style>
+</head>
+<body>
+
+  <div class="calc">
+    <h1>Shayan Simple Calc</h1>
+    <div id="screen">0</div>
+    <div class="keys">
+      <button type="button" onclick="clearAll()">C</button>
+      <button type="button" class="op" onclick="setOp('/')">÷</button>
+      <button type="button" class="op" onclick="setOp('*')">×</button>
+      <button type="button" class="op" onclick="back()">⌫</button>
+
+      <button type="button" onclick="digit('7')">7</button>
+      <button type="button" onclick="digit('8')">8</button>
+      <button type="button" onclick="digit('9')">9</button>
+      <button type="button" class="op" onclick="setOp('-')">−</button>
+
+      <button type="button" onclick="digit('4')">4</button>
+      <button type="button" onclick="digit('5')">5</button>
+      <button type="button" onclick="digit('6')">6</button>
+      <button type="button" class="op" onclick="setOp('+')">+</button>
+
+      <button type="button" onclick="digit('1')">1</button>
+      <button type="button" onclick="digit('2')">2</button>
+      <button type="button" onclick="digit('3')">3</button>
+      <button type="button" class="op tall" onclick="equals()">=</button>
+
+      <button type="button" class="zero" onclick="digit('0')">0</button>
+      <button type="button" onclick="dot()">.</button>
+    </div>
+  </div>
+
+  <script>
+    var screen = document.getElementById("screen");
+    var current = "0";
+    var saved = null;
+    var pendingOp = null;
+    var fresh = true;
+
+    function update() {
+      screen.textContent = current;
+    }
+
+    function clearAll() {
+      current = "0";
+      saved = null;
+      pendingOp = null;
+      fresh = true;
+      update();
+    }
+
+    function digit(d) {
+      if (current === "Error") {
+        clearAll();
+      }
+      if (fresh) {
+        current = d;
+        fresh = false;
+      } else {
+        if (current === "0" && d !== "0") current = d;
+        else if (current === "0" && d === "0") return;
+        else current = current + d;
+      }
+      update();
+    }
+
+    function dot() {
+      if (current === "Error") clearAll();
+      if (fresh) {
+        current = "0.";
+        fresh = false;
+        update();
+        return;
+      }
+      if (current.indexOf(".") === -1) {
+        current = current + ".";
+        update();
+      }
+    }
+
+    function back() {
+      if (fresh) return;
+      if (current.length <= 1) {
+        current = "0";
+        fresh = true;
+      } else {
+        current = current.slice(0, -1);
+      }
+      update();
+    }
+
+    function doMath(a, b, op) {
+      if (op === "+") return a + b;
+      if (op === "-") return a - b;
+      if (op === "*") return a * b;
+      if (op === "/") return b === 0 ? NaN : a / b;
+      return b;
+    }
+
+    function setOp(op) {
+      if (current === "Error") return;
+      var num = parseFloat(current);
+      if (saved !== null && pendingOp !== null && !fresh) {
+        num = doMath(saved, num, pendingOp);
+        if (isNaN(num)) {
+          current = "Error";
+          saved = null;
+          pendingOp = null;
+          fresh = true;
+          update();
+          return;
+        }
+        current = String(num);
+        update();
+      }
+      saved = parseFloat(current);
+      pendingOp = op;
+      fresh = true;
+    }
+
+    function equals() {
+      if (pendingOp === null || saved === null) return;
+      var b = parseFloat(current);
+      var out = doMath(saved, b, pendingOp);
+      if (isNaN(out)) {
+        current = "Error";
+      } else {
+        current = String(out);
+        if (current.indexOf(".") !== -1) {
+          current = String(Math.round(out * 1e10) / 1e10);
+        }
+      }
+      saved = null;
+      pendingOp = null;
+      fresh = true;
+      update();
+    }
+  </script>
+
+</body>
+</html>

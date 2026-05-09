@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shayan Calc — GPA</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 45%, #0f3460 100%);
+      padding: 32px 16px;
+    }
+    .wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+    .head {
+      background: #e94560;
+      color: #fff;
+      padding: 18px 20px;
+      text-align: left;
+    }
+    .head h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .head p {
+      margin: 6px 0 0;
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+    .body {
+      padding: 20px;
+      border-left: 4px solid #e94560;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #555;
+      margin: 0 0 14px;
+      text-align: left;
+    }
+    #subjects {
+      text-align: left;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    .row input[type="text"] { flex: 1 1 120px; min-width: 100px; }
+    .row input[type="number"] { width: 88px; }
+    input {
+      padding: 8px 10px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .add {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #0f3460;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .add:hover { background: #16213e; }
+    .remove {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #e94560;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .remove:hover { background: #c73e54; }
+    #result {
+      margin-top: 18px;
+      padding: 14px;
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1rem;
+      min-height: 52px;
+    }
+    #result:empty { display: none; }
+    #result .num { color: #7ee787; font-size: 1.25rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="head">
+      <h1>Shayan Calc</h1>
+      <p>GPA — same rules as class calculator</p>
+    </div>
+    <div class="body">
+      <p class="hint">Subject + marks (0–100). Rows with both filled count toward GPA.</p>
+      <div id="subjects"></div>
+      <button type="button" class="add" onclick="addSubject()">+ Add subject</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    var subjects = document.getElementById("subjects");
+    var result = document.getElementById("result");
+
+    function addSubject() {
+      var div = document.createElement("div");
+      div.className = "row";
+      div.innerHTML =
+        '<input type="text" placeholder="Subject">' +
+        '<input type="number" min="0" max="100" placeholder="Marks">' +
+        '<button type="button" class="remove">Remove</button>';
+      subjects.appendChild(div);
+      calculate();
+    }
+
+    function marksToGpa(marks) {
+      if (marks >= 85) return 4.0;
+      if (marks >= 80) return 3.7;
+      if (marks >= 75) return 3.3;
+      if (marks >= 70) return 3.0;
+      if (marks >= 65) return 2.7;
+      if (marks >= 60) return 2.0;
+      if (marks >= 50) return 1.0;
+      return 0.0;
+    }
+
+    function calculate() {
+      var total = 0;
+      var count = 0;
+      var rows = subjects.querySelectorAll(".row");
+
+      rows.forEach(function (row) {
+        var name = row.children[0].value.trim();
+        var marks = row.children[1].value;
+        if (name !== "" && marks !== "") {
+          var m = Number(marks);
+          if (m >= 0 && m <= 100) {
+            total += marksToGpa(m);
+            count++;
+          }
+        }
+      });
+
+      if (count === 0) {
+        result.innerHTML = "";
+      } else {
+        var gpa = total / count;
+        result.innerHTML =
+          "GPA: <span class=\"num\">" + gpa.toFixed(2) + "</span> &nbsp;·&nbsp; " +
+          count + " subject(s)";
+      }
+    }
+
+    subjects.addEventListener("input", calculate);
+
+    subjects.addEventListener("click", function (e) {
+      if (e.target.classList.contains("remove")) {
+        e.target.parentElement.remove();
+        calculate();
+      }
+    });
+
+    addSubject();
+    addSubject();
+  </script>
+
+</body>
+</html>
